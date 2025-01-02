@@ -15,8 +15,13 @@ A Command Line Interface (CLI) tool for reading and displaying the contents of `
    git clone https://github.com/TheDoubleMix/RKGViewer.git
    cd RKGViewer
    ```
+2. Install dependencies:
 
-2. Make the script executable (optional):
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Make the script executable (optional):
 
    ```bash
    chmod +x rkg_reader.py
