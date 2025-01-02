@@ -1,0 +1,3 @@
+colorama==0.4.4
+curtsies==0.4.2
+keyboard==0.13.5
