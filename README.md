@@ -24,7 +24,7 @@ A Command Line Interface (CLI) tool for reading and displaying the contents of `
 3. Make the script executable (optional):
 
    ```bash
-   chmod +x rkg_reader.py
+   chmod +x app.py
    ```
 
 ### How to use
@@ -44,7 +44,7 @@ This will display the encrypted contents of the `.rkg` file in the terminal.
 ### Example
 
 ```bash
-python rkg_reader.py sample.rkg
+python app.py sample.rkg
 ```
 
 Output:
