@@ -4,7 +4,7 @@ A Command Line Interface (CLI) tool for reading and displaying the contents of `
 ## Features
 
 - **Read `.rkg` files**: Decodes and displays the contents of `.rkg` files directly in your terminal.
-<!---- **User-Friendly**: Simple CLI options. --->
+<!-- **User-Friendly**: Simple CLI options. -->
 - **Readable Output**: Formats the file data for easy interpretation.
 
 ## Installation
