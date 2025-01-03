@@ -80,7 +80,7 @@ For issues, please report them in the [issues section](https://github.com/yourus
 
 ## License
 
-This project doesn't have a licese yet.
+This project uses the MIT License.
 
 ---
 
