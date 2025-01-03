@@ -1,10 +1,10 @@
-# RKG File Reader CLI
+# RKG Viewer CLI
 
 A Command Line Interface (CLI) tool for reading and displaying the contents of `.rkg` files in a human-readable format. Perfect for inspecting or analyzing `.rkg` files with only a terminal.
 ## Features
 
 - **Read `.rkg` files**: Decodes and displays the contents of `.rkg` files directly in your terminal.
-- **User-Friendly**: Simple CLI options.
+<!---- **User-Friendly**: Simple CLI options. --->
 - **Readable Output**: Formats the file data for easy interpretation.
 
 ## Installation
@@ -73,6 +73,7 @@ Example:
 Too Many arguments!
 If you want to you can still select the file you want to choose.
 ```
+The RKG Viewer CLI is still in beta, If you use the inputs or options menu, you will get an error and the cli will close.
 ## Issues
 
 For issues, please report them in the [issues section](https://github.com/yourusername/rkg-file-reader-cli/issues).
@@ -83,4 +84,4 @@ This project doesn't have a licese yet.
 
 ---
 
-Thank you for using the RKG File Reader CLI! 🎉
+Thank you for using the RKG Viewer CLI! 🎉
