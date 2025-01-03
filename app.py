@@ -287,9 +287,9 @@ def main(file: str) -> None:
             return misc2_str + misc3_str + self.ESC
         @classmethod
         def inputs(self) -> None:
-            raise NotImplemented
+            return NotImplemented
         def options(self) -> None:
-            raise NotImplemented
+            return NotImplemented
     menu.menu()
     #print(lap_times)
 if len(argv) < 2:
