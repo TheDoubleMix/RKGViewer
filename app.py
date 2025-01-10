@@ -2,8 +2,12 @@ from os import system
 from os.path import splitext, isfile
 from sys import argv
 from colorama import init as colorama_init
-from colorama import Fore, Style, Back
+from colorama import deinit as colorama_deinit
+from colorama import Fore, Style
 from platform import system as s2
+from time import time
+# Code made by TheDoubleMix. Sorry if my code doesn't have many comments.
+# Much of the code is self explanatory to me and it will be tedious to make comments that explain what everything does.
 linux = s2() == 'Linux'
 windows = s2() == 'Windows'
 if linux:
@@ -50,7 +54,7 @@ def get_file() -> str:
                 break
     return file
 class Yaz1dec:
-    @classmethod
+    @classmethod # Code translated from WhatisLoaf's input display into Python.
     def decode_all(self, src: bytes) -> bytearray:
         read_bytes = 0
         src_size = len(src)
@@ -105,7 +109,7 @@ class Yaz1dec:
             curr_code_byte <<= 1
             valid_bit_count -= 1
         return src_pos, dst_pos
-def main(file: str) -> None:
+def mainfunc(file: str) -> None:
     if file == "EXIT":
         return None
     with open(file, 'rb') as f:
@@ -129,9 +133,9 @@ def main(file: str) -> None:
         if ans == "n":
             return None
     clear()
-    m = str(int(read_bits(32, 7), 2))
-    s = str(int(read_bits(39, 7), 2))
-    ms = str(int(read_bits(46, 10), 2))
+    m = str(int(read_bits(32, 7), 2)) # Minutes
+    s = str(int(read_bits(39, 7), 2)) # Seconds
+    ms = str(int(read_bits(46, 10), 2)) # Milliseconds
     trackid = int(read_bits(56, 6), 2)
     vehicleid = int(read_bits(64, 6), 2)
     charid = int(read_bits(70, 6), 2)
@@ -146,13 +150,14 @@ def main(file: str) -> None:
     ghosttype = int(read_bits(103, 7), 2)
     inputlen = str(int(read_bits(112, 16), 2))
     laps = str(int(read_bits(128, 8), 2))
+    compressedlen = int(read_bits(1088, 32), 2)
     if read_bits(110, 1) == "1":
         drifttype = "Automatic"
     else:
         drifttype = "Manual"
     lap_times = []
     _offset = 136
-    for _ in range(5):
+    for _ in range(int(laps)):
         for _ in range(2):
             if len(str(int(read_bits(_offset, 7), 2))) == 1:
                 lap_times.append("0" + str(int(read_bits(_offset, 7), 2)))
@@ -167,8 +172,14 @@ def main(file: str) -> None:
             lap_times.append(str(int(read_bits(_offset, 10), 2)))
         _offset += 10
     input_amount = int(read_bits(1088, 32), 2)
-    decompress_size = int(read_bits(1152, 32), 2)
-    decompressed = bytes(Yaz1dec.decode_all(_bytes[140:decompress_size]))
+    if Compressed:
+        decompressed = bytes(Yaz1dec.decode_all(_bytes[140:compressedlen+140]))
+    else:
+        decompressed = int(read_bits(1088, 32), 2)
+    if str(_bytes[-9:-4], 'utf-8', 'ignore') == 'CKGD':
+        ctgp = True
+    else:
+        ctgp = False
     if len(s) == 1:
         s = "0" + s
     if len(ms) == 1:
@@ -183,6 +194,7 @@ def main(file: str) -> None:
         m = "0" + m
     class menu:
         ESC: str = "\nPress ESC to quit this menu."
+        CTGP: str = "CTGP Ghost"
         @classmethod
         def menu(self):
             in_menu = False
@@ -232,10 +244,24 @@ def main(file: str) -> None:
                                 print("> Info\n  Inputs\n  Misc\n  Options\nPress ESC to quit/→ to select.")
                                 in_menu = False
             else:
+                global repeat
+                repeat = False
                 def wait_until_not(key):
+                    global repeat
+                    time_start = time()
                     while is_pressed(key):
+                        if not repeat:
+                            if time() - time_start > 0.5: # half a second
+                                repeat = True
+                                break
+                        else:
+                            if time() - time_start > (1/30): # 1/30 or 2 frames in 60fps
+                                repeat = True
+                                break
                         if not is_pressed(key):
                             break
+                    if not is_pressed(key):
+                        repeat = False
                 while True:
                     if not in_menu:
                         if is_pressed("esc"):
@@ -244,7 +270,7 @@ def main(file: str) -> None:
                             clear()
                             cursor -= 1
                             update()
-                            wait_until_not("esc")
+                            wait_until_not("up")
                         if is_pressed("down"):
                             clear()
                             cursor += 1
@@ -268,36 +294,34 @@ def main(file: str) -> None:
             time_str = "\nTime: " + m + ":" + s + "." + ms
             misc_str = "\nTrack: " + tracks[trackid] + "\nCharacter: " + Characters[charid] +"\nVehicle: " + Vehicles[vehicleid]
             drift_str = "\nDrift type: " + drifttype
-            
             date_str = "\nDate: " + year + "/" + month + "/" + day
             ctrler_str = "\nController: " + Controllers[controllerid % 5]
             lap_splits = "\n"
             for i in range(1, int(laps) + 1):
-                if i != int(laps) + 1:
-                    lap_splits += "Lap " + str(i) + " Time: " + lap_times[(i*3)-3] + ":" + lap_times[(i*3)-2] + "." + lap_times[(i*3)-1] + "\n"
-                else:
-                    lap_splits += "Lap " + str(i) + " Time: " + lap_times[(i*3)-3] + ":" + lap_times[(i*3)-2] + "." + lap_times[(i*3)-1]
-            
-            #print(" ――――――――――――――\n│              │\n│              │\n│          .˙· │\n│              │\n│          .˙· │\n ‾‾‾‾‾‾‾‾‾‾‾‾‾‾") square lol
+                lap_splits += "Lap " + str(i) + " Time: " + lap_times[(i*3)-3] + ":" + lap_times[(i*3)-2] + "." + lap_times[(i*3)-1] + " "
+            #print(" ――――――――――――――\n│              │\n│              │\n│          .˙· │\n│              │\n│          .˙· │\n ‾‾‾‾‾‾‾‾‾‾‾‾‾‾") square used in the input display in the future
             return metadata_str + time_str + lap_splits + misc_str + drift_str + date_str + ctrler_str + self.ESC
         @classmethod
         def misc_info(self):
-            misc2_str = "Ghost type: " + str(hex(ghosttype)) + " (" + ghosttypes[ghosttype - 1] + ")"
+            if ctgp:
+                misc2_str = "Ghost type: " + str(hex(ghosttype)) + " (" + self.CTGP + ")"
+            else:
+                misc2_str = "Ghost type: " + str(hex(ghosttype)) + " (" + ghosttypes[ghosttype - 1] + ")"
             misc3_str = "\nInput data length decompressed: " + inputlen + " Bytes\nLaps Driven: " + laps + "\nCompressed: " + str(Compressed)
             return misc2_str + misc3_str + self.ESC
         @classmethod
         def inputs(self) -> None:
-            return NotImplemented
+            return "Not Implemented" + self.ESC
+        @classmethod
         def options(self) -> None:
-            return NotImplemented
+            return "Not Implemented" + self.ESC
     menu.menu()
-    #print(lap_times)
 if len(argv) < 2:
     print(Fore.RED + "No RKG File argument given!" + Style.RESET_ALL)
-    main(get_file())
+    mainfunc(get_file())
 elif len(argv) > 2:
     print(Fore.RED + "Too Many arguments!\n" + Fore.BLUE + "If you want to you can still select the file you want to choose." + Style.RESET_ALL)
-    main(get_file())
+    mainfunc(get_file())
 else:
     print(Fore.BLUE + "Using second argument as rkg file" + Style.RESET_ALL)
     extention = splitext(argv[1])[1].removeprefix(".")
@@ -315,4 +339,5 @@ else:
         else:
             file = get_file()
         clear()
-    main(file)
+    mainfunc(file)
+colorama_deinit()

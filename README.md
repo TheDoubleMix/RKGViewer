@@ -73,7 +73,12 @@ Example:
 Too Many arguments!
 If you want to you can still select the file you want to choose.
 ```
-The RKG Viewer CLI is still in beta, If you use the inputs or options menu, you will get an error and the cli will close.
+The RKG Viewer CLI is still in beta, If you use the inputs or options menu, you will get a warning.
+Example:
+```
+Not Implemented
+Press ESC to quit this menu. 
+```
 ## Issues
 
 For issues, please report them in the [issues section](https://github.com/yourusername/rkg-file-reader-cli/issues).
