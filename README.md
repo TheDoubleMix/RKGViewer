@@ -1,4 +1,5 @@
 # RKG Viewer CLI
+![example workflow](https://github.com/TheDoubleMix/RKGViewer/actions/workflows/python-app.yml/badge.svg)
 
 A Command Line Interface (CLI) tool for reading and displaying the contents of `.rkg` files in a human-readable format. Perfect for inspecting or analyzing `.rkg` files with only a terminal.
 ## Features
