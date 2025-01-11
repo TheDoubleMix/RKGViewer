@@ -82,7 +82,7 @@ Press ESC to quit this menu.
 ```
 ## Issues
 
-For issues, please report them in the [issues section](https://github.com/yourusername/rkg-file-reader-cli/issues).
+For issues, please report them in the [issues section](https://github.com/TheDoubleMix/RKGViewer/issues).
 
 ## License
 
