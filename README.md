@@ -39,17 +39,17 @@ or
 ```bash
 python app.py
 ```
+If you don't pass a `.rkg` file as input, you will get a error. More in the Errors/Warnings section.
 
-This will display a list of options to use on the `.rkg` file.
-
-The RKG Viewer CLI is still in beta, If you use the inputs or options menu, you will get a warning. More in the Errors/Warnings section.
-### Example
+### Example:
 
 ```bash
 python app.py sample.rkg
 ```
 
-Output:
+This will display a list of options to use on the `.rkg` file.
+
+### Output:
 
 ```
 > Info
@@ -59,24 +59,33 @@ Output:
 Press ESC to quit/→ to select.
 ```
 
+The RKG Viewer CLI is still in beta, If you use the inputs or options menu, you will get a warning. More in the Errors/Warnings section.
+
 ## Errors/Warnings
 
 The CLI is designed to handle standard `.rkg` file formats, if you want to use any other option, it's possible.
 if the you have a corrupted file/a non .rkg file, you get a warning about it.
-### Example
+### Example:
 ```
 01100110011100100110111101101101          First 32 bits
 01010010010010110100011101000100           Correct bits
 ```
 
-if there are too many arguments the program you will get a warning.
-### Example
+If there are too many arguments the program you will get a warning.
+### Example:
 ```
 Too Many arguments!
 If you want to you can still select the file you want to choose.
 ```
+If there are no arguments the program you will also get a warning.
+### Example:
+```
+No RKG File argument given!
+Type "exit" to exit rkgview
+Give a path to a rkg file:
+```
 The RKG Viewer CLI is still in beta, If you use the inputs or options menu, you will get a warning.
-### Example
+### Example:
 ```
 Not Implemented
 Press ESC to quit this menu. 
