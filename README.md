@@ -33,7 +33,7 @@ A Command Line Interface (CLI) tool for reading and displaying the contents of `
 Run the tool with an `.rkg` file as input, or not:
 
 ```bash
-python app.py path/to/your/file.rkg
+python app.py /path/to/your/file.rkg
 ```
 or
 ```bash
